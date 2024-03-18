@@ -1,25 +1,78 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Página com pesquisa de CEP</title>
+  <title>Página com pesquisa de CNPJ</title>
 </head>
+
 <body>
+  <input type="text" id="pesquisaCNPJ" placeholder="Digite o CNPJ">
+  <button onclick="buscarEnderecows()">Buscar</button><br><br>
 
-<input name="pesquisaCep" id="pesquisaCep" type="number"/>
-<input type="button" value="Buscar no Via CEP" onclick="buscarEnderecoNoViaCEP()" />
+  <label for="rua">Rua:</label>
+  <input type="text" id="rua"><br>
+  <label for="bairro">Bairro:</label>
+  <input type="text" id="bairro"><br>
+  <label for="cidade">Cidade:</label>
+  <input type="text" id="cidade"><br>
+  <label for="uf">UF:</label>
+  <input type="text" id="uf"><br>
+  <label for="ibge">IBGE:</label>
+  <input type="text" id="ibge"><br>
+  <label for="cep">CEP:</label>
+  <input type="text" id="cep"><br>
+ 
 
 
-</body>
-</html>
 
-<script>
-    function buscarEnderecoNoViaCEP() {
-       componentePesquisaCep = document.getElementById("pesquisaCep");
-       alert("O cep digitado é:" + componentePesquisaCep.value);
-       alert("Funcionou o click no butão buscar");
+  <script>
+
+    function buscarEnderecows() {
+      var componentePesquisaCNPJ = document.getElementById("pesquisaCNPJ").value;
+      alert("O CNPJ digitado é: " + componentePesquisaCNPJ);
+
+      fetch('https://cors-anywhere.herokuapp.com/https://receitaws.com.br/v1/cnpj/' + componentePesquisaCNPJ)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao consultar CNPJ.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            meu_callback(data);
+        })
+        .catch(error => {
+            alert(error.message);
+        });
+      // var script = document.createElement('script');
+      // script.src = 'https://cors-anywhere.herokuapp.com/https://receitaws.com.br/v1/cnpj/' + componentePesquisaCNPJ ;
+      
+      // script.setAttribute('origin', 'https://cors-anywhere.herokuapp.com/https://receitaws.com.br/');
+      // document.body.appendChild(script);
 
     }
-</script>
+
+    // Função de callback
+    function meu_callback(conteudo) {
+      if (!("erro" in conteudo)) {
+        // Atualiza os campos com os valores.
+        document.getElementById('rua').value = conteudo.logradouro || "";
+        document.getElementById('bairro').value = conteudo.bairro || "";
+        document.getElementById('cidade').value = conteudo.localidade || "";
+        document.getElementById('uf').value = conteudo.uf || "";
+        document.getElementById('ibge').value = conteudo.ibge || "";
+        document.getElementById('cep').value = conteudo.cep || "";
+      } else {
+        alert("Erro ao consultar CNPJ.");
+      }
+    }
+
+  </script>
+</body>
+
+</html>
+
+

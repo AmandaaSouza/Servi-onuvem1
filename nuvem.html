@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página com pesquisa de CEP</title>
+  <script>
+    {
+  "status": "OK",
+  "ultima_atualizacao": "2019-08-24T14:15:22Z",
+  "cnpj": "string",
+  "tipo": "MATRIZ",
+  "porte": "string",
+  "nome": "string",
+  "fantasia": "string",
+  "abertura": "string",
+  "atividade_principal": [
+    {
+      "code": "string",
+      "text": "string"
+    }
+  ],
+  "atividades_secundarias": [
+    {
+      "code": "string",
+      "text": "string"
+    }
+  ],
+  natureza_juridica: string,
+  logradouro: string,
+  "numero": "string",
+  "complemento": "string",
+  "cep": "string",
+  "bairro": "string",
+  "municipio": "string",
+  "uf": "string",
+  "email": "string",
+  "telefone": "string",
+  "efr": "string",
+  "situacao": "string",
+  "data_situacao": "string",
+  "motivo_situacao": "string",
+  situacao_especial
+  
+  : string,
+  data_situacao_especial: string,
+  capital_social: string,
+  qsa: [
+    {
+      nome: string,
+      qual: string,
+      pais_origem: string,
+      nome_rep_legal: string,
+      qual_rep_legal: string
+    }
+  ],
+  billing: {
+    free: true,
+    database: true
+  }
+}
+  </script>
+
+</head>
+<body> 
+<label>CNPJ:
+  <input name="CNPJ" type="number" id="CNPJ"  /></label>
+  <input type="button" value="Buscar na Receitaws" onclick="buscarEnderecows()" /><br />
+  <label>Cep:
+<input name="cep" id="cep" type="number"/><br />
+<label>Rua:
+  <input name="rua" type="text" id="rua" size="60" /></label><br />
+  <label>Bairro:
+  <input name="bairro" type="text" id="bairro" size="40" /></label><br />
+  <label>Cidade:
+  <input name="cidade" type="text" id="cidade" size="40" /></label><br />
+  <label>Estado:
+  <input name="uf" type="text" id="uf" size="2" /></label><br />
+  <label>IBGE:
+  <input name="ibge" type="text" id="ibge" size="8" /></label><br />
+
+  const url = 'https://receitaws.com.br/v1/cnpj/cnpj';
+const options = {method: 'GET', headers: {Accept: 'application/json'}};
+
+try {
+  const response = await fetch(url, options);
+  const data = await response.json();
+  console.log(data);
+} catch (error) {
+  console.error(error);
+}
+</body>
+</html>
+
+

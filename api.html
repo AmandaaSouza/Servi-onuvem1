@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página com pesquisa de CNPJ</title>
+</head>
+
+<body>
+<label for="cidade">Digite o nome da sua cidade:</label>
+<input type="text" id="cidade"> </br>
+<button onclick="buscarTempo()">Buscar</button>
+</body>
+<script>
+function buscarTempo() {
+      var cidade = document.getElementById("cidade").value;
+      var chave="d4ca261ba5253b51a3bc08c743548df2";
+      alert("A cidade digitada é: " + cidade);
+      var url=`https://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${chave}`; 
+      //alert(url);
+      fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao consultar cidade.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            meu_callback(data);
+        })
+        .catch(error => {
+            alert(error.message);
+        });
+      // var script = document.createElement('script');
+      // script.src = 'https://cors-anywhere.herokuapp.com/https://receitaws.com.br/v1/cnpj/' + componentePesquisaCNPJ ;
+      
+      // script.setAttribute('origin', 'https://cors-anywhere.herokuapp.com/https://receitaws.com.br/');
+      // document.body.appendChild(script);
+
+    }
+
+    // Função de callback
+    function meu_callback(conteudo) {
+      if (!("erro" in conteudo)) {
+        // Atualiza os campos com os valores.
+       // document.getElementById('rua').value = conteudo.logradouro || "";
+       // document.getElementById('bairro').value = conteudo.bairro || "";
+       // document.getElementById('cidade').value = conteudo.localidade || "";
+       // document.getElementById('uf').value = conteudo.uf || "";
+       /// document.getElementById('ibge').value = conteudo.ibge || "";
+       // document.getElementById('cep').value = conteudo.cep || "";
+
+alert(JSON.stringify(conteudo));
+       alert("grau:"+conteudo.weather.description)
+       alert("nome da cidade pesquisada:"+conteudo.name);
+       alert("Sucesso na consulta");
+      } else {
+        alert("Erro ao consultar cidade.");
+      }
+    }
+
+
+</script>
+</html>
+
+

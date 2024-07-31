@@ -1,13 +1,15 @@
 <html>
 
 <body>
-  <input type="text" placeholder="Dê o comando"> <br>
 
-  <button>Buscar</button><br><br>
+  <label for="msg">Dê o comando</label>
+  <textarea id="promptR"></textarea>
+  <button id="button">Buscar</button><br><br>
 
   <label></label>
 
-  <input type="text" placeholder="Resposta da IA" id="Resposta"><br>
+  <label for="msg">Resposta da IA</label>
+  <textarea id="resposta"></textarea>
 
   <script type="importmap">
     {
@@ -26,21 +28,40 @@
     const genAI = new GoogleGenerativeAI(API_KEY);
 
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-  
-    async function run() {
-      const prompt = "Olá Gemini você agora é uma empresa de maquiagem , irá atender seus clientes de forma atenciosa. Podemos iniciar o atendimento?"
 
-      const result = await model.generateContent(prompt);
+    async function run() {
+      var prompt = "Olá Gemini você agora é uma empresa de maquiagem , irá atender seus clientes de forma atenciosa. Podemos iniciar o atendimento?"
+
+      var promptusuario = document.getElementById("promptR").value;
+
+      var promptcompleta = prompt + promptusuario;
+
+      const result = await model.generateContent(promptcompleta);
       const response = await result.response;
       const text = response.text();
 
-      document.getElementById("Resposta").value = text;
+      document.getElementById("resposta").value = text;
       //console.log(text);
     }
 
     run();
-  </script>
+    document.getElementById("button").addEventListener("click", function () {
+      run();
+    });
 
+
+  </script>
+  <style>
+    .form {
+      /* Apenas para centralizar o form na página */
+      margin: 0 auto;
+      width: 400px;
+      /* Para ver as bordas do formulário */
+      padding: 1em;
+      border: 1px solid #ccc;
+      border-radius: 1em;
+    }
+  </style>
 
 </body>
 

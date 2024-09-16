@@ -1,7 +1,7 @@
-onst { MongoClient } = require('mongodb');
+const { MongoClient } = require('mongodb');
 
 // URL de conexão ao MongoDB. Substitua `<username>`, `<password>`, e `<cluster-url>` pelos seus detalhes.
-const url = 'mongodb://<username>:<021ab354>@cluster0.xppt7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const url = 'mongodb://<021ab354>:<021ab354>@cluster0.xppt7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 // Nome do banco de dados
 const dbName = 'meuBancoDeDados';
 

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testar API</title>
+</head>
+<body>
+    <h1>Testar API do Chatbot</h1>
+
+    <h2>Enviar Mensagem</h2>
+    <form id="conversationForm">
+        <label for="userId">ID do Usuário:</label>
+        <input type="text" id="userId" name="userId" required>
+        <br>
+        <label for="message">Mensagem:</label>
+        <textarea id="message" name="message" required></textarea>
+        <br>
+        <button type="submit">Enviar Mensagem</button>
+    </form>
+
+    <h2>Registrar Login</h2>
+    <form id="loginForm">
+        <label for="loginUserId">ID do Usuário:</label>
+        <input type="text" id="loginUserId" name="userId" required>
+        <br>
+        <button type="submit">Registrar Login</button>
+    </form>
+
+    <script>
+        document.getElementById('conversationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const userId = document.getElementById('userId').value;
+            const message = document.getElementById('message').value;
+
+            fetch('/api/conversation', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ userId, message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Mensagem enviada com sucesso!');
+                console.log(data);
+            })
+            .catch(error => {
+                alert('Erro ao enviar a mensagem.');
+                console.error('Erro:', error);
+            });
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const userId = document.getElementById('loginUserId').value;
+
+            fetch('/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ userId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Login registrado com sucesso!');
+                console.log(data);
+            })
+            .catch(error => {
+                alert('Erro ao registrar o login.');
+                console.error('Erro:', error);
+            });
+        });
+    </script>
+</body>
+</html>

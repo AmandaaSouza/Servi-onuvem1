@@ -1,7 +1,7 @@
 const cors = require('cors');
 
 // Adicione isso ao seu arquivo server.js
-app.use(cors());
+
 
 
 const express = require('express');
@@ -10,6 +10,7 @@ const bodyParser = require('body-parser');
 
 // Cria uma instância do Express
 const app = express();
+app.use(cors());
 
 // Configuração do body-parser para análise dos corpos das requisições
 app.use(bodyParser.json());
@@ -63,7 +64,7 @@ app.post('/api/login', async (req, res) => {
 });
 
 // Porta do servidor
-const PORT = process.env.PORT || 3000;
+const PORT =  3000;
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
 });

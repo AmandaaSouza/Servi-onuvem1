@@ -1,0 +1,69 @@
+<html>
+
+<body>
+
+  <label for="msg">Dê o comando</label>
+  <textarea id="promptR"></textarea>
+  <button id="button">Buscar</button><br><br>
+
+  <label></label>
+
+  <label for="msg">Resposta da IA</label>
+  <textarea id="resposta"></textarea>
+
+
+  <script type="importmap">
+    {
+      "imports": {
+        "@google/generative-ai": "https://esm.run/@google/generative-ai"
+      }
+    }
+  </script>
+  <script type="module">
+    import { GoogleGenerativeAI } from "@google/generative-ai";
+
+    // Fetch your API_KEY
+    const API_KEY = "AIzaSyB8ZMZFxHPGGoUBQnjFUWfQ47PqeyI_TnE";
+
+    // Access your API key (see "Set up your API key" above)
+    const genAI = new GoogleGenerativeAI(API_KEY);
+
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+    async function run() {
+      var prompt = "Olá Gemini você agora é uma empresa de maquiagem , irá atender seus clientes de forma atenciosa. Podemos iniciar o atendimento?"
+
+      var promptusuario = document.getElementById("promptR").value;
+
+      var promptcompleta = prompt + promptusuario;
+
+      const result = await model.generateContent(promptcompleta);
+      const response = await result.response;
+      const text = response.text();
+
+      document.getElementById("resposta").value = text;
+      //console.log(text);
+    }
+
+    run();
+    document.getElementById("button").addEventListener("click", function () {
+      run();
+    });
+
+
+  </script>
+  <style>
+    .form {
+      /* Apenas para centralizar o form na página */
+      margin: 0 auto;
+      width: 400px;
+      /* Para ver as bordas do formulário */
+      padding: 1em;
+      border: 1px solid #ccc;
+      border-radius: 1em;
+    }
+  </style>
+
+</body>
+
+</html>
